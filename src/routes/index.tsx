@@ -15,7 +15,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Aurvyn" },
-      { name: "description", content: "AURVYN builds attention, authority, and revenue for ambitious brands through social media, performance marketing, and strategic content systems." },
+      {
+        name: "description",
+        content:
+          "AURVYN builds attention, authority, and revenue for ambitious brands through social media, performance marketing, and strategic content systems.",
+      },
       { property: "og:title", content: "Aurvyn" },
       { property: "og:description", content: "A digital growth company. Systems over campaigns." },
     ],
@@ -70,10 +74,12 @@ function Home() {
               transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="mt-10 flex flex-wrap items-center gap-4"
             >
-              <MagneticButton onClick={() => {
-                trackButtonClick("BOOK_CALL_CLICKED", { section: "hero" });
-                open();
-              }}>
+              <MagneticButton
+                onClick={() => {
+                  trackButtonClick("BOOK_CALL_CLICKED", { section: "hero" });
+                  open();
+                }}
+              >
                 Book Strategy Call
                 <ArrowRight className="size-4" />
               </MagneticButton>
@@ -92,7 +98,13 @@ function Home() {
             transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="relative max-w-[430px] mx-auto lg:ml-auto lg:mr-0 w-full"
           >
-            <div className="absolute -inset-8 -z-10 rounded-full" style={{ background: "radial-gradient(circle, rgba(242,68,85,0.20), transparent 60%)", filter: "blur(50px)" }} />
+            <div
+              className="absolute -inset-8 -z-10 rounded-full"
+              style={{
+                background: "radial-gradient(circle, rgba(242,68,85,0.20), transparent 60%)",
+                filter: "blur(50px)",
+              }}
+            />
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -114,13 +126,19 @@ function Home() {
             { v: 100, suf: "+", l: "Campaigns Managed" },
             { v: 50, suf: "M+", l: "Combined Reach" },
           ].map((s, i) => (
-            <motion.div variants={itemVariants} key={i} className="border-l border-white/[0.08] pl-5">
+            <motion.div
+              variants={itemVariants}
+              key={i}
+              className="border-l border-white/[0.08] pl-5"
+            >
               <div className="font-display text-4xl tracking-tight sm:text-5xl">
                 <span className="text-gradient">
-                  <AnimatedCounter value={s.v} prefix={s.pre} suffix={s.suf} />
+                  <AnimatedCounter value={s.v} suffix={s.suf} />
                 </span>
               </div>
-              <div className="mt-3 text-xs uppercase tracking-[0.16em] text-text-tertiary">{s.l}</div>
+              <div className="mt-3 text-xs uppercase tracking-[0.16em] text-text-tertiary">
+                {s.l}
+              </div>
             </motion.div>
           ))}
         </RevealGroup>
@@ -133,16 +151,22 @@ function Home() {
             transition={{ duration: 32, ease: "linear", repeat: Infinity }}
           >
             {[...Array(2)].flatMap((_, k) =>
-              ["Primebook", "Wishcare", "Bellavita", "The Man Company", "Shein", "Fastrack", "Beardo"].map(
-                (n) => (
-                  <span
-                    key={`${k}-${n}`}
-                    className="whitespace-nowrap font-display text-2xl tracking-[0.12em] text-text-tertiary opacity-50 transition-all duration-300 hover:text-text-primary hover:opacity-100"
-                  >
-                    {n.toUpperCase()}
-                  </span>
-                ),
-              ),
+              [
+                "Primebook",
+                "Wishcare",
+                "Bellavita",
+                "The Man Company",
+                "Shein",
+                "Fastrack",
+                "Beardo",
+              ].map((n) => (
+                <span
+                  key={`${k}-${n}`}
+                  className="whitespace-nowrap font-display text-2xl tracking-[0.12em] text-text-tertiary opacity-50 transition-all duration-300 hover:text-text-primary hover:opacity-100"
+                >
+                  {n.toUpperCase()}
+                </span>
+              )),
             )}
           </motion.div>
         </div>
@@ -167,7 +191,9 @@ function Home() {
                     <div className="border-gradient-brand mb-6 grid size-11 place-items-center rounded-full">
                       <Icon className="size-4 text-text-primary" strokeWidth={1.5} />
                     </div>
-                    <div className="font-display text-xl tracking-tight text-text-primary">{s.name}</div>
+                    <div className="font-display text-xl tracking-tight text-text-primary">
+                      {s.name}
+                    </div>
                     <p className="mt-3 text-sm leading-relaxed text-text-secondary">{s.oneLine}</p>
                     <div className="mt-8 inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-text-tertiary transition-colors group-hover:text-text-primary">
                       Explore
@@ -197,7 +223,10 @@ function Home() {
           </div>
         </Reveal>
         <div className="mt-10">
-          <Link to="/about" className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-text-primary">
+          <Link
+            to="/about"
+            className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-text-primary"
+          >
             Read our approach
             <ArrowUpRight className="size-4" />
           </Link>
@@ -208,7 +237,13 @@ function Home() {
       <section className="mx-auto max-w-7xl px-6 pb-12 lg:px-10">
         <Reveal>
           <GlassCard interactive={false} className="relative overflow-hidden p-10 sm:p-16">
-            <div className="pointer-events-none absolute -right-20 -top-20 size-[420px] rounded-full" style={{ background: "radial-gradient(circle, rgba(242,68,85,0.25), transparent 60%)", filter: "blur(50px)" }} />
+            <div
+              className="pointer-events-none absolute -right-20 -top-20 size-[420px] rounded-full"
+              style={{
+                background: "radial-gradient(circle, rgba(242,68,85,0.25), transparent 60%)",
+                filter: "blur(50px)",
+              }}
+            />
             <div className="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
               <div>
                 <div className="eyebrow">Next intake</div>
@@ -216,15 +251,17 @@ function Home() {
                   Ready to make growth a <span className="text-gradient">system</span>?
                 </h3>
                 <p className="mt-5 max-w-xl text-text-secondary">
-                  A 30-minute strategy call. We assess fit, surface the highest-leverage moves for your
-                  brand, and tell you straight if we're not the right team for it.
+                  A 30-minute strategy call. We assess fit, surface the highest-leverage moves for
+                  your brand, and tell you straight if we're not the right team for it.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 lg:justify-end">
-                <MagneticButton onClick={() => {
-                  trackButtonClick("BOOK_CALL_CLICKED", { section: "cta_banner" });
-                  open();
-                }}>
+                <MagneticButton
+                  onClick={() => {
+                    trackButtonClick("BOOK_CALL_CLICKED", { section: "cta_banner" });
+                    open();
+                  }}
+                >
                   Book Strategy Call
                   <ArrowRight className="size-4" />
                 </MagneticButton>
