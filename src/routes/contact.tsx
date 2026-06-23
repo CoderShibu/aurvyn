@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Clock, Instagram, Linkedin, Mail, MessageSquare, Phone, Loader2 } from "lucide-react";
+import {
+  ArrowRight,
+  Clock,
+  Instagram,
+  Linkedin,
+  Mail,
+  MessageSquare,
+  Phone,
+  Loader2,
+} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -16,9 +25,15 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Aurvyn" },
-      { name: "description", content: "Get in touch with AURVYN. We'll respond within one business day." },
+      {
+        name: "description",
+        content: "Get in touch with AURVYN. We'll respond within one business day.",
+      },
       { property: "og:title", content: "Contact — Aurvyn" },
-      { property: "og:description", content: "Tell us about your brand. We'll respond within one business day." },
+      {
+        property: "og:description",
+        content: "Tell us about your brand. We'll respond within one business day.",
+      },
     ],
   }),
   component: ContactPage,
@@ -58,8 +73,9 @@ function ContactPage() {
   };
 
   const handlePhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
-                     (typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches);
+    const isMobile =
+      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+      (typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches);
     trackButtonClick("PHONE_CALL_CLICKED");
     if (!isMobile) {
       e.preventDefault();
@@ -85,25 +101,25 @@ function ContactPage() {
           </p>
 
           <div className="mt-10 space-y-5">
-            <ContactRow 
-              icon={Mail} 
-              label="Email" 
-              value="aurvynn@gmail.com" 
-              href="mailto:aurvynn@gmail.com" 
+            <ContactRow
+              icon={Mail}
+              label="Email"
+              value="aurvynn@gmail.com"
+              href="mailto:aurvynn@gmail.com"
               onClick={() => trackButtonClick("EMAIL_CLICKED")}
             />
-            <ContactRow 
-              icon={Phone} 
-              label="Call Now" 
-              value="+91 6361063589" 
-              href="tel:6361063589" 
+            <ContactRow
+              icon={Phone}
+              label="Call Now"
+              value="+91 6361063589"
+              href="tel:6361063589"
               onClick={handlePhoneClick}
             />
-            <ContactRow 
-              icon={MessageSquare} 
-              label="WhatsApp" 
-              value="+91 6361063589" 
-              href="https://wa.me/916361063589" 
+            <ContactRow
+              icon={MessageSquare}
+              label="WhatsApp"
+              value="+91 6361063589"
+              href="https://wa.me/916361063589"
               onClick={() => trackButtonClick("WHATSAPP_CLICKED")}
             />
             <ContactRow icon={Clock} label="Hours" value="Mon–Fri · 10:00–19:00 IST" />
@@ -122,15 +138,40 @@ function ContactPage() {
                   ✓
                 </div>
                 <div className="mt-6 font-display text-2xl tracking-tight">Message received.</div>
-                <p className="mt-2 text-sm text-text-secondary">We'll reply within one business day.</p>
+                <p className="mt-2 text-sm text-text-secondary">
+                  We'll reply within one business day.
+                </p>
               </motion.div>
             ) : (
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                <FloatingInput label="Name" {...form.register("name")} error={form.formState.errors.name?.message} />
-                <FloatingInput label="Email" type="email" {...form.register("email")} error={form.formState.errors.email?.message} />
-                <FloatingInput label="Phone" type="tel" {...form.register("phone")} error={form.formState.errors.phone?.message} />
-                <FloatingInput label="Brand Name" {...form.register("company")} error={form.formState.errors.company?.message} />
-                <FloatingTextarea label="Message" rows={5} {...form.register("message")} error={form.formState.errors.message?.message} />
+                <FloatingInput
+                  label="Name"
+                  {...form.register("name")}
+                  error={form.formState.errors.name?.message}
+                />
+                <FloatingInput
+                  label="Email"
+                  type="email"
+                  {...form.register("email")}
+                  error={form.formState.errors.email?.message}
+                />
+                <FloatingInput
+                  label="Phone"
+                  type="tel"
+                  {...form.register("phone")}
+                  error={form.formState.errors.phone?.message}
+                />
+                <FloatingInput
+                  label="Brand Name"
+                  {...form.register("company")}
+                  error={form.formState.errors.company?.message}
+                />
+                <FloatingTextarea
+                  label="Message"
+                  rows={5}
+                  {...form.register("message")}
+                  error={form.formState.errors.message?.message}
+                />
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -167,19 +208,33 @@ function ContactRow({
   href?: string;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
-  const Wrap: React.ElementType = href ? "a" : "div";
-  return (
-    <Wrap
-      {...(href ? { href, onClick } : {})}
-      className="group flex items-center gap-4 border-b border-white/[0.06] pb-5"
-    >
+  const content = (
+    <>
       <div className="border-gradient-brand grid size-10 place-items-center rounded-full">
         <Icon className="size-4 text-text-primary" strokeWidth={1.5} />
       </div>
       <div>
         <div className="text-[11px] uppercase tracking-[0.16em] text-text-tertiary">{label}</div>
-        <div className="mt-0.5 text-text-primary transition-colors group-hover:text-white">{value}</div>
+        <div className="mt-0.5 text-text-primary transition-colors group-hover:text-white">
+          {value}
+        </div>
       </div>
-    </Wrap>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        onClick={onClick}
+        className="group flex items-center gap-4 border-b border-white/[0.06] pb-5"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div className="group flex items-center gap-4 border-b border-white/[0.06] pb-5">{content}</div>
   );
 }
