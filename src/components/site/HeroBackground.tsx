@@ -20,14 +20,14 @@ export function HeroBackground() {
       <div
         className="absolute right-[-10%] top-1/3 size-[520px] rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(242,68,85,0.18), transparent 60%)",
+          background: "radial-gradient(circle, var(--brand-glow), transparent 60%)",
           filter: "blur(60px)",
         }}
       />
       <div
         className="absolute left-[-8%] top-[60%] size-[360px] rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(255,148,178,0.10), transparent 60%)",
+          background: "radial-gradient(circle, var(--brand-glow-soft), transparent 60%)",
           filter: "blur(60px)",
         }}
       />

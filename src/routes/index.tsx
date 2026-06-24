@@ -92,7 +92,7 @@ function Home() {
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="relative max-w-[430px] mx-auto lg:ml-auto lg:mr-0 w-full"
           >
-            <div className="absolute -inset-8 -z-10 rounded-full" style={{ background: "radial-gradient(circle, rgba(242,68,85,0.20), transparent 60%)", filter: "blur(50px)" }} />
+            <div className="absolute -inset-8 -z-10 rounded-full" style={{ background: "radial-gradient(circle, var(--brand-glow), transparent 60%)", filter: "blur(50px)" }} />
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -208,7 +208,7 @@ function Home() {
       <section className="mx-auto max-w-7xl px-6 pb-12 lg:px-10">
         <Reveal>
           <GlassCard interactive={false} className="relative overflow-hidden p-10 sm:p-16">
-            <div className="pointer-events-none absolute -right-20 -top-20 size-[420px] rounded-full" style={{ background: "radial-gradient(circle, rgba(242,68,85,0.25), transparent 60%)", filter: "blur(50px)" }} />
+            <div className="pointer-events-none absolute -right-20 -top-20 size-[420px] rounded-full" style={{ background: "radial-gradient(circle, var(--brand-glow-strong), transparent 60%)", filter: "blur(50px)" }} />
             <div className="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
               <div>
                 <div className="eyebrow">Next intake</div>

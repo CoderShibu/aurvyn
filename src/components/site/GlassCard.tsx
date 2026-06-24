@@ -30,7 +30,7 @@ export function GlassCard({ children, className = "", interactive = true, onMous
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 [.group:hover_&]:opacity-100"
           style={{
             background:
-              "radial-gradient(420px circle at var(--mx,50%) var(--my,50%), rgba(255,148,178,0.15), transparent 55%)",
+              "radial-gradient(420px circle at var(--mx,50%) var(--my,50%), var(--card-glow-color, rgba(255,148,178,0.15)), transparent 55%)",
           }}
         />
       )}

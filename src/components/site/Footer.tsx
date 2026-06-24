@@ -17,7 +17,12 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-12 px-6 py-20 md:grid-cols-4 lg:px-10">
         <div className="col-span-2 md:col-span-1">
           <Link to="/" className="inline-block">
-            <img src="/logo.png" alt="AURVYN Logo" className="h-7 w-auto object-contain" />
+            <img
+              src="/logo.png"
+              alt="AURVYN Logo"
+              className="h-7 w-auto object-contain"
+              style={{ filter: "var(--logo-filter)" }}
+            />
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-text-secondary">
             A digital growth company engineering attention, authority, and revenue for ambitious brands.
@@ -85,7 +90,12 @@ export function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-6 py-6 text-xs text-text-tertiary md:flex-row md:items-center lg:px-10">
           <span className="flex flex-wrap items-center gap-1.5">
             © {new Date().getFullYear()}{" "}
-            <img src="/logo.png" alt="AURVYN Logo" className="h-4.5 w-auto object-contain inline-block" />{" "}
+            <img
+              src="/logo.png"
+              alt="AURVYN Logo"
+              className="h-4.5 w-auto object-contain inline-block"
+              style={{ filter: "var(--logo-filter)" }}
+            />{" "}
             All rights reserved.
           </span>
           <div className="flex gap-6">
