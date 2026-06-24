@@ -66,6 +66,9 @@
   --brand-glow-soft: rgba(255, 148, 178, 0.10);
   --brand-glow-strong: rgba(242, 68, 85, 0.25);
   --card-glow-color: rgba(255, 148, 178, 0.15);
+  --selection-bg: rgba(242, 68, 85, 0.35);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.08);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.16);
 
   --text-primary: #ffffff;
   --text-secondary: #b5b5b5;
@@ -106,6 +109,9 @@ html.light {
   --brand-glow-soft: rgba(236, 72, 153, 0.06);
   --brand-glow-strong: rgba(239, 68, 68, 0.15);
   --card-glow-color: rgba(236, 72, 153, 0.12);
+  --selection-bg: rgba(239, 68, 68, 0.25);
+  --scrollbar-thumb: rgba(15, 23, 42, 0.08);
+  --scrollbar-thumb-hover: rgba(15, 23, 42, 0.16);
 
   --text-primary: #0f172a;
   --text-secondary: #475569;
@@ -144,6 +150,9 @@ html.blue {
   --brand-glow-soft: rgba(56, 189, 248, 0.10);
   --brand-glow-strong: rgba(37, 99, 235, 0.25);
   --card-glow-color: rgba(56, 189, 248, 0.18);
+  --selection-bg: rgba(37, 99, 235, 0.35);
+  --scrollbar-thumb: rgba(56, 189, 248, 0.08);
+  --scrollbar-thumb-hover: rgba(56, 189, 248, 0.16);
 
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
@@ -190,7 +199,7 @@ html.blue {
   }
 
   ::selection {
-    background: rgba(242, 68, 85, 0.35);
+    background: var(--selection-bg, rgba(242, 68, 85, 0.35));
     color: #fff;
   }
 
@@ -198,10 +207,10 @@ html.blue {
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.08);
+    background: var(--scrollbar-thumb, rgba(255,255,255,0.08));
     border-radius: 999px;
   }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover, rgba(255,255,255,0.16)); }
 }
 
 @utility glass-panel {
@@ -210,7 +219,8 @@ html.blue {
   backdrop-filter: blur(20px) saturate(140%);
   border-radius: 20px;
   box-shadow: var(--shadow-glass);
-  transition: border-color 400ms var(--ease-cinema),
+  transition: background-color 500ms ease,
+    border-color 400ms var(--ease-cinema),
     box-shadow 400ms var(--ease-cinema),
     transform 400ms var(--ease-cinema);
 }
