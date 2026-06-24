@@ -51,10 +51,16 @@
 :root {
   --radius: 1.25rem;
 
+  /* Dark Theme (Default) */
   --bg-primary: #050505;
   --bg-surface: #0d0d0d;
+  --bg-grid-color: rgba(255, 255, 255, 0.03);
   --glass: rgba(255, 255, 255, 0.06);
   --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-border-hover: rgba(255, 255, 255, 0.18);
+  --bg-navbar: rgba(5, 5, 5, 0.72);
+  --border-navbar: rgba(255, 255, 255, 0.08);
+  --logo-filter: none;
 
   --text-primary: #ffffff;
   --text-secondary: #b5b5b5;
@@ -76,6 +82,72 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 
   --ease-cinema: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light Theme overrides */
+html.light {
+  color-scheme: light;
+  --bg-primary: #fcfcfd;
+  --bg-surface: #f4f4f7;
+  --bg-grid-color: rgba(15, 23, 42, 0.04);
+  --glass: rgba(15, 23, 42, 0.04);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-border-hover: rgba(15, 23, 42, 0.15);
+  --bg-navbar: rgba(252, 252, 253, 0.72);
+  --border-navbar: rgba(15, 23, 42, 0.06);
+  --logo-filter: invert(1);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+
+  --brand-pink: #db2777;
+  --brand-rose: #ec4899;
+  --brand-red: #ef4444;
+  --brand-deep: #dc2626;
+
+  --gradient-brand: linear-gradient(135deg, #db2777 0%, #ec4899 35%, #ef4444 70%, #dc2626 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(219, 39, 119, 0.12) 0%, rgba(239, 68, 68, 0.06) 100%);
+
+  --shadow-glass:
+    0 8px 32px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-glass-hover:
+    0 18px 48px rgba(15, 23, 42, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Cyberpunk Theme overrides */
+html.cyberpunk {
+  color-scheme: dark;
+  --bg-primary: #030712;
+  --bg-surface: #0b0f19;
+  --bg-grid-color: rgba(56, 189, 248, 0.04);
+  --glass: rgba(56, 189, 248, 0.06);
+  --glass-border: rgba(56, 189, 248, 0.15);
+  --glass-border-hover: rgba(56, 189, 248, 0.25);
+  --bg-navbar: rgba(3, 7, 18, 0.72);
+  --border-navbar: rgba(56, 189, 248, 0.08);
+  --logo-filter: none;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #4b5563;
+
+  --brand-pink: #c084fc;
+  --brand-rose: #38bdf8;
+  --brand-red: #2dd4bf;
+  --brand-deep: #0f766e;
+
+  --gradient-brand: linear-gradient(135deg, #c084fc 0%, #38bdf8 35%, #2dd4bf 70%, #0f766e 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(192, 132, 252, 0.15) 0%, rgba(45, 212, 191, 0.08) 100%);
+
+  --shadow-glass:
+    0 8px 32px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(56, 189, 248, 0.12);
+  --shadow-glass-hover:
+    0 18px 48px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(56, 189, 248, 0.22);
 }
 
 @layer base {
@@ -125,7 +197,7 @@
 
 @utility glass-panel-hover {
   &:hover {
-    border-color: rgba(255, 255, 255, 0.18);
+    border-color: var(--glass-border-hover, rgba(255, 255, 255, 0.18));
     box-shadow: var(--shadow-glass-hover);
     transform: translateY(-4px);
   }
@@ -183,8 +255,8 @@
   /* Faded grid background helper */
   .bg-grid {
     background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      linear-gradient(var(--bg-grid-color, rgba(255,255,255,0.03)) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bg-grid-color, rgba(255,255,255,0.03)) 1px, transparent 1px);
     background-size: 64px 64px;
   }
 

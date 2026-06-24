@@ -10,6 +10,7 @@ import { useBooking } from "@/components/site/BookingProvider";
 import { services } from "@/components/site/data";
 import { motion } from "framer-motion";
 import { trackButtonClick } from "@/components/site/AnalyticsProvider";
+import { Hero3DElement } from "@/components/site/Hero3DElement";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,9 +35,9 @@ function Home() {
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 pb-20 pt-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-10">
           <div>
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="eyebrow inline-flex items-center gap-2"
             >
               <span className="size-1.5 rounded-full bg-gradient-brand" />
@@ -44,9 +45,9 @@ function Home() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 24, filter: "blur(12px)" }}
+              initial={{ opacity: 0, y: 32, filter: "blur(12px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
               className="headline mt-6 text-[clamp(48px,9vw,112px)]"
             >
               Growth Is
@@ -55,9 +56,9 @@ function Home() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
               className="mt-7 max-w-[520px] text-base leading-relaxed text-text-secondary sm:text-lg"
             >
               AURVYN helps brands build attention, authority, and revenue through social media,
@@ -65,9 +66,9 @@ function Home() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="mt-10 flex flex-wrap items-center gap-4"
             >
               <MagneticButton onClick={() => {
@@ -87,14 +88,27 @@ function Home() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30, filter: "blur(14px)" }}
+            initial={{ opacity: 0, y: 40, filter: "blur(14px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="relative max-w-[430px] mx-auto lg:ml-auto lg:mr-0 w-full"
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="relative max-w-[430px] mx-auto lg:ml-auto lg:mr-0 w-full pt-12 lg:pt-16"
           >
             <div className="absolute -inset-8 -z-10 rounded-full" style={{ background: "radial-gradient(circle, rgba(242,68,85,0.20), transparent 60%)", filter: "blur(50px)" }} />
+            
+            {/* Interactive 3D Glass shape floating on top */}
+            <div className="absolute -left-10 -top-8 z-20 h-40 w-40 pointer-events-auto md:-left-16 md:-top-14 md:h-56 md:w-56">
+              <motion.div
+                animate={{ y: [0, -8, 0], rotate: [0, 2, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Hero3DElement />
+              </motion.div>
+            </div>
+
+            {/* Dashboard card underneath */}
             <motion.div
-              animate={{ y: [0, -6, 0] }}
+              className="pointer-events-none"
+              animate={{ y: [0, -4, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
               <LiveDashboard />

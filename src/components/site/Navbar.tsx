@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useBooking } from "./BookingProvider";
 import { trackButtonClick } from "./AnalyticsProvider";
+import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { to: "/", label: "Home" },
@@ -37,8 +38,8 @@ export function Navbar() {
         initial={false}
         animate={{
           height: scrolled ? 64 : 72,
-          backgroundColor: scrolled ? "rgba(5,5,5,0.72)" : "rgba(5,5,5,0)",
-          borderBottomColor: scrolled ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0)",
+          backgroundColor: scrolled ? "var(--bg-navbar)" : "rgba(5,5,5,0)",
+          borderBottomColor: scrolled ? "var(--border-navbar)" : "rgba(255,255,255,0)",
           backdropFilter: scrolled ? "blur(16px) saturate(140%)" : "blur(0px)",
         }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
@@ -47,7 +48,12 @@ export function Navbar() {
       >
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-10">
           <Link to="/" className="flex items-center">
-            <img src="/logo.png" alt="AURVYN Logo" className="h-7 w-auto object-contain" />
+            <img
+              src="/logo.png"
+              alt="AURVYN Logo"
+              className="h-7 w-auto object-contain"
+              style={{ filter: "var(--logo-filter)" }}
+            />
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
@@ -75,6 +81,7 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <button
               onClick={() => {
                 trackButtonClick("BOOK_CALL_CLICKED", { section: "navbar" });
@@ -112,22 +119,31 @@ export function Navbar() {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[60] md:hidden"
             style={{
-              background: "rgba(5,5,5,0.85)",
+              background: "var(--bg-surface)",
+              opacity: 0.98,
               backdropFilter: "blur(24px) saturate(140%)",
               WebkitBackdropFilter: "blur(24px) saturate(140%)",
             }}
           >
             <div className="flex items-center justify-between px-6 py-5">
               <Link to="/" className="flex items-center">
-                <img src="/logo.png" alt="AURVYN Logo" className="h-7 w-auto object-contain" />
+                <img
+                  src="/logo.png"
+                  alt="AURVYN Logo"
+                  className="h-7 w-auto object-contain"
+                  style={{ filter: "var(--logo-filter)" }}
+                />
               </Link>
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="rounded-md p-2 cursor-pointer"
-                aria-label="Close menu"
-              >
-                <X className="size-5" />
-              </button>
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-md p-2 cursor-pointer"
+                  aria-label="Close menu"
+                >
+                  <X className="size-5" />
+                </button>
+              </div>
             </div>
             <nav className="flex flex-col px-6 pt-6">
               {links.map((l, i) => (
