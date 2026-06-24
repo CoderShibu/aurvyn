@@ -61,6 +61,7 @@
   --bg-navbar: rgba(5, 5, 5, 0.72);
   --border-navbar: rgba(255, 255, 255, 0.08);
   --logo-filter: none;
+  --bubble-color: rgba(255, 148, 178, 0.55);
 
   --text-primary: #ffffff;
   --text-secondary: #b5b5b5;
@@ -95,7 +96,8 @@ html.light {
   --glass-border-hover: rgba(15, 23, 42, 0.15);
   --bg-navbar: rgba(252, 252, 253, 0.72);
   --border-navbar: rgba(15, 23, 42, 0.06);
-  --logo-filter: invert(1);
+  --logo-filter: brightness(0) opacity(0.85);
+  --bubble-color: rgba(236, 72, 153, 0.35);
 
   --text-primary: #0f172a;
   --text-secondary: #475569;
@@ -117,8 +119,8 @@ html.light {
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
-/* Cyberpunk Theme overrides */
-html.cyberpunk {
+/* Blue Theme overrides */
+html.blue {
   color-scheme: dark;
   --bg-primary: #030712;
   --bg-surface: #0b0f19;
@@ -128,19 +130,20 @@ html.cyberpunk {
   --glass-border-hover: rgba(56, 189, 248, 0.25);
   --bg-navbar: rgba(3, 7, 18, 0.72);
   --border-navbar: rgba(56, 189, 248, 0.08);
-  --logo-filter: none;
+  --logo-filter: invert(53%) sepia(85%) saturate(3382%) hue-rotate(185deg) brightness(101%) contrast(101%);
+  --bubble-color: rgba(56, 189, 248, 0.55);
 
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-tertiary: #4b5563;
 
-  --brand-pink: #c084fc;
+  --brand-pink: #7dd3fc;
   --brand-rose: #38bdf8;
-  --brand-red: #2dd4bf;
-  --brand-deep: #0f766e;
+  --brand-red: #2563eb;
+  --brand-deep: #1d4ed8;
 
-  --gradient-brand: linear-gradient(135deg, #c084fc 0%, #38bdf8 35%, #2dd4bf 70%, #0f766e 100%);
-  --gradient-brand-soft: linear-gradient(135deg, rgba(192, 132, 252, 0.15) 0%, rgba(45, 212, 191, 0.08) 100%);
+  --gradient-brand: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 35%, #2563eb 70%, #1d4ed8 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(125, 211, 252, 0.15) 0%, rgba(37, 99, 235, 0.08) 100%);
 
   --shadow-glass:
     0 8px 32px rgba(0, 0, 0, 0.50),
@@ -151,6 +154,11 @@ html.cyberpunk {
 }
 
 @layer base {
+  /* Smooth theme transitions */
+  html, body, header, section, footer, div.glass-panel, div.border-gradient-brand, h1, h2, h3, p, span, button, a, img {
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, fill 0.5s ease, stroke 0.5s ease, filter 0.5s ease;
+  }
+
   * {
     border-color: var(--color-border);
   }

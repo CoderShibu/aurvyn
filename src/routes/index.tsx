@@ -10,7 +10,6 @@ import { useBooking } from "@/components/site/BookingProvider";
 import { services } from "@/components/site/data";
 import { motion } from "framer-motion";
 import { trackButtonClick } from "@/components/site/AnalyticsProvider";
-import { Hero3DElement } from "@/components/site/Hero3DElement";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -91,24 +90,11 @@ function Home() {
             initial={{ opacity: 0, y: 40, filter: "blur(14px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative max-w-[430px] mx-auto lg:ml-auto lg:mr-0 w-full pt-12 lg:pt-16"
+            className="relative max-w-[430px] mx-auto lg:ml-auto lg:mr-0 w-full"
           >
             <div className="absolute -inset-8 -z-10 rounded-full" style={{ background: "radial-gradient(circle, rgba(242,68,85,0.20), transparent 60%)", filter: "blur(50px)" }} />
-            
-            {/* Interactive 3D Glass shape floating on top */}
-            <div className="absolute -left-10 -top-8 z-20 h-40 w-40 pointer-events-auto md:-left-16 md:-top-14 md:h-56 md:w-56">
-              <motion.div
-                animate={{ y: [0, -8, 0], rotate: [0, 2, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <Hero3DElement />
-              </motion.div>
-            </div>
-
-            {/* Dashboard card underneath */}
             <motion.div
-              className="pointer-events-none"
-              animate={{ y: [0, -4, 0] }}
+              animate={{ y: [0, -6, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
               <LiveDashboard />
@@ -131,7 +117,7 @@ function Home() {
             <motion.div variants={itemVariants} key={i} className="border-l border-white/[0.08] pl-5">
               <div className="font-display text-4xl tracking-tight sm:text-5xl">
                 <span className="text-gradient">
-                  <AnimatedCounter value={s.v} prefix={s.pre} suffix={s.suf} />
+                  <AnimatedCounter value={s.v} suffix={s.suf} />
                 </span>
               </div>
               <div className="mt-3 text-xs uppercase tracking-[0.16em] text-text-tertiary">{s.l}</div>

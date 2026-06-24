@@ -165,7 +165,7 @@ function ContactRow({
   label: string;
   value: string;
   href?: string;
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  onClick?: (e: React.MouseEvent<any>) => void;
 }) {
   const Wrap: React.ElementType = href ? "a" : "div";
   return (

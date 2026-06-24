@@ -8,7 +8,7 @@ export function ThemeToggle() {
   const options: { value: Theme; icon: any; label: string }[] = [
     { value: "light", icon: Sun, label: "Light" },
     { value: "dark", icon: Moon, label: "Dark" },
-    { value: "cyberpunk", icon: Sparkles, label: "Cyberpunk" },
+    { value: "blue", icon: Sparkles, label: "Blue" },
   ];
 
   return (
