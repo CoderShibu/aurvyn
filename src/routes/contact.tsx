@@ -134,7 +134,7 @@ function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_10px_30px_-10px_rgba(242,68,85,0.55)] cursor-pointer"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-brand-sm cursor-pointer"
                 >
                   {isSubmitting ? (
                     <Loader2 className="size-4 animate-spin" />

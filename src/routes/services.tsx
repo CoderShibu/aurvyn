@@ -184,7 +184,7 @@ function ServicesPage() {
                   setActive(null);
                   setTimeout(() => open(s), 250);
                 }}
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_10px_30px_-10px_rgba(242,68,85,0.55)] cursor-pointer"
+                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-brand-sm cursor-pointer"
               >
                 Continue to booking
                 <ArrowRight className="size-4" />

@@ -112,7 +112,7 @@ function AboutPage() {
                 <div
                   aria-hidden
                   className="aspect-square w-full rounded-xl"
-                  style={{ background: "linear-gradient(135deg, rgba(254,213,227,0.18), rgba(229,32,58,0.25))" }}
+                  style={{ background: "var(--gradient-about-card)" }}
                 />
                 <div className="mt-5 font-display text-lg tracking-tight">Profile coming soon</div>
                 <div className="mt-1 text-xs uppercase tracking-[0.16em] text-text-tertiary">{role}</div>

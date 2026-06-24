@@ -31,7 +31,7 @@ export function ThemeToggle() {
             {active && (
               <motion.span
                 layoutId="active-theme-pill"
-                className="absolute inset-0 -z-10 rounded-full bg-gradient-brand opacity-20 shadow-[0_0_12px_rgba(242,68,85,0.15)]"
+                className="absolute inset-0 -z-10 rounded-full bg-gradient-brand opacity-20 shadow-glow-sm"
                 transition={{ type: "spring", stiffness: 350, damping: 28 }}
               />
             )}

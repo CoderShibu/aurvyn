@@ -312,7 +312,7 @@ export function BookingModal() {
 
                     <button
                       type="submit"
-                      className="relative w-full overflow-hidden rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_10px_30px_-10px_rgba(242,68,85,0.55)] transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                      className="relative w-full overflow-hidden rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-brand-sm transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                     >
                       Submit inquiry
                     </button>
@@ -355,7 +355,7 @@ export function BookingModal() {
 
                     <button
                       type="submit"
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_10px_30px_-10px_rgba(242,68,85,0.55)] transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-brand-sm transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                     >
                       Next: Choose Date & Time
                       <ArrowRight className="size-4" />
@@ -420,7 +420,7 @@ export function BookingModal() {
                               onClick={() => setSelectedTimeSlot(slot)}
                               className={`rounded-xl border py-3 text-xs font-medium transition-all duration-200 cursor-pointer ${
                                 active
-                                  ? "border-transparent bg-gradient-brand text-white shadow-[0_4px_12px_rgba(242,68,85,0.25)]"
+                                  ? "border-transparent bg-gradient-brand text-white shadow-timeslot"
                                   : "border-white/10 text-text-secondary bg-white/[0.01] hover:border-white/25 hover:text-text-primary"
                               }`}
                             >
@@ -441,7 +441,7 @@ export function BookingModal() {
                 <button
                   type="button"
                   onClick={handleScheduleCall}
-                  className="mt-8 relative w-full overflow-hidden rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_10px_30px_-10px_rgba(242,68,85,0.55)] transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                  className="mt-8 relative w-full overflow-hidden rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-brand-sm transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                 >
                   Schedule Call (Google Meet)
                 </button>
@@ -499,7 +499,7 @@ export function BookingModal() {
                   initial={{ scale: 0.6, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative grid size-20 place-items-center rounded-full bg-gradient-brand shadow-[0_10px_40px_-10px_rgba(242,68,85,0.7)]"
+                  className="relative grid size-20 place-items-center rounded-full bg-gradient-brand shadow-brand"
                 >
                   <Check className="size-9 text-white" strokeWidth={2.5} />
                 </motion.div>

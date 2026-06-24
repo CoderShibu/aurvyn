@@ -33,12 +33,12 @@ export function LiveDashboard({ compact = false }: { compact?: boolean }) {
           <AreaChart data={data} margin={{ left: -20, right: 0, top: 4, bottom: 0 }}>
             <defs>
               <linearGradient id="brandFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#ff94b2" stopOpacity={0.4} />
-                <stop offset="100%" stopColor="#f24455" stopOpacity={0} />
+                <stop offset="0%" stopColor="var(--brand-rose)" stopOpacity={0.4} />
+                <stop offset="100%" stopColor="var(--brand-red)" stopOpacity={0} />
               </linearGradient>
               <linearGradient id="brandStroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#fed5e3" />
-                <stop offset="100%" stopColor="#e5203a" />
+                <stop offset="0%" stopColor="var(--brand-pink)" />
+                <stop offset="100%" stopColor="var(--brand-deep)" />
               </linearGradient>
             </defs>
             <CartesianGrid stroke="rgba(255,255,255,0.04)" vertical={false} />

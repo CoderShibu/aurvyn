@@ -22,14 +22,14 @@ export function MobileStickyCTA() {
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-x-0 bottom-0 z-40 p-3 md:hidden"
-          style={{ background: "linear-gradient(to top, rgba(5,5,5,0.95), rgba(5,5,5,0))" }}
+          style={{ background: "linear-gradient(to top, var(--bg-primary-fade, rgba(5,5,5,0.95)), transparent)" }}
         >
           <button
             onClick={() => {
               trackButtonClick("BOOK_CALL_CLICKED", { section: "mobile_sticky" });
               open();
             }}
-            className="w-full rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-[0_10px_40px_-10px_rgba(242,68,85,0.7)] cursor-pointer"
+            className="w-full rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-brand cursor-pointer"
           >
             Book Strategy Call
           </button>

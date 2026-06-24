@@ -69,6 +69,15 @@
   --scrollbar-thumb: rgba(255, 255, 255, 0.08);
   --scrollbar-thumb-hover: rgba(255, 255, 255, 0.16);
 
+  --shadow-btn: 0 10px 40px -12px rgba(242, 68, 85, 0.6);
+  --shadow-btn-hover: 0 16px 50px -12px rgba(242, 68, 85, 0.8);
+  --shadow-btn-sm: 0 10px 30px -10px rgba(242, 68, 85, 0.55);
+  --shadow-glow-sm: 0 0 12px rgba(242, 68, 85, 0.15);
+  --shadow-glow-md: 0 0 24px rgba(242, 68, 85, 0.7);
+  --shadow-timeslot: 0 4px 12px rgba(242, 68, 85, 0.25);
+  --gradient-about-card: linear-gradient(135deg, rgba(254, 213, 227, 0.18), rgba(229, 32, 58, 0.25));
+  --bg-primary-fade: rgba(5, 5, 5, 0.95);
+
   --text-primary: #ffffff;
   --text-secondary: #b5b5b5;
   --text-tertiary: #6e6e6e;
@@ -102,7 +111,7 @@ html.light {
   --glass-border-hover: rgba(15, 23, 42, 0.15);
   --bg-navbar: rgba(252, 252, 253, 0.72);
   --border-navbar: rgba(15, 23, 42, 0.06);
-  --logo-filter: brightness(0) opacity(0.85);
+  --logo-filter: none;
   --bubble-color: rgba(236, 72, 153, 0.35);
   --brand-glow: rgba(239, 68, 68, 0.12);
   --brand-glow-soft: rgba(236, 72, 153, 0.06);
@@ -111,6 +120,15 @@ html.light {
   --selection-bg: rgba(239, 68, 68, 0.25);
   --scrollbar-thumb: rgba(15, 23, 42, 0.08);
   --scrollbar-thumb-hover: rgba(15, 23, 42, 0.16);
+
+  --shadow-btn: 0 10px 40px -12px rgba(239, 68, 68, 0.4);
+  --shadow-btn-hover: 0 16px 50px -12px rgba(239, 68, 68, 0.55);
+  --shadow-btn-sm: 0 10px 30px -10px rgba(239, 68, 68, 0.35);
+  --shadow-glow-sm: 0 0 12px rgba(239, 68, 68, 0.15);
+  --shadow-glow-md: 0 0 24px rgba(239, 68, 68, 0.4);
+  --shadow-timeslot: 0 4px 12px rgba(239, 68, 68, 0.18);
+  --gradient-about-card: linear-gradient(135deg, rgba(219, 39, 119, 0.12), rgba(239, 68, 68, 0.18));
+  --bg-primary-fade: rgba(252, 252, 253, 0.95);
 
   --text-primary: #0f172a;
   --text-secondary: #475569;
@@ -153,6 +171,15 @@ html.blue {
   --scrollbar-thumb: rgba(56, 189, 248, 0.08);
   --scrollbar-thumb-hover: rgba(56, 189, 248, 0.16);
 
+  --shadow-btn: 0 10px 40px -12px rgba(37, 99, 235, 0.6);
+  --shadow-btn-hover: 0 16px 50px -12px rgba(37, 99, 235, 0.8);
+  --shadow-btn-sm: 0 10px 30px -10px rgba(37, 99, 235, 0.55);
+  --shadow-glow-sm: 0 0 12px rgba(37, 99, 235, 0.15);
+  --shadow-glow-md: 0 0 24px rgba(37, 99, 235, 0.7);
+  --shadow-timeslot: 0 4px 12px rgba(37, 99, 235, 0.25);
+  --gradient-about-card: linear-gradient(135deg, rgba(125, 211, 252, 0.15), rgba(37, 99, 235, 0.25));
+  --bg-primary-fade: rgba(3, 7, 18, 0.95);
+
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-tertiary: #4b5563;
@@ -176,7 +203,7 @@ html.blue {
 @layer base {
   /* Smooth theme transitions */
   html, body, header, section, footer, div.glass-panel, div.border-gradient-brand, h1, h2, h3, p, span, button, a, img {
-    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, fill 0.5s ease, stroke 0.5s ease, filter 0.5s ease;
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, fill 0.5s ease, stroke 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease;
   }
 
   * {
@@ -278,6 +305,32 @@ html.blue {
 @utility num-tabular {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+}
+
+@utility shadow-brand {
+  box-shadow: var(--shadow-btn);
+}
+
+@utility shadow-brand-hover {
+  &:hover {
+    box-shadow: var(--shadow-btn-hover);
+  }
+}
+
+@utility shadow-brand-sm {
+  box-shadow: var(--shadow-btn-sm);
+}
+
+@utility shadow-glow-sm {
+  box-shadow: var(--shadow-glow-sm);
+}
+
+@utility shadow-glow-md {
+  box-shadow: var(--shadow-glow-md);
+}
+
+@utility shadow-timeslot {
+  box-shadow: var(--shadow-timeslot);
 }
 
 @layer base {

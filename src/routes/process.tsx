@@ -55,7 +55,7 @@ function ProcessPage() {
                 className="relative grid grid-cols-[80px_1fr] gap-6 sm:grid-cols-[120px_1fr] sm:gap-10"
               >
                 <div className="relative">
-                  <span className="absolute left-1/2 top-2 size-3 -translate-x-1/2 rounded-full bg-gradient-brand shadow-[0_0_24px_rgba(242,68,85,0.7)]" />
+                  <span className="absolute left-1/2 top-2 size-3 -translate-x-1/2 rounded-full bg-gradient-brand shadow-glow-md" />
                 </div>
                 <div className="relative">
                   <div className="text-gradient-outline absolute -top-6 right-0 select-none font-display text-[120px] leading-none sm:text-[160px]">

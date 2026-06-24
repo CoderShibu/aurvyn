@@ -35,7 +35,7 @@ export function MagneticButton({ children, onClick, className = "", variant = "p
   const base = "relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium tracking-wide transition-colors";
   const styles =
     variant === "primary"
-      ? "bg-gradient-brand text-white shadow-[0_10px_40px_-12px_rgba(242,68,85,0.6)] hover:shadow-[0_16px_50px_-12px_rgba(242,68,85,0.8)]"
+      ? "bg-gradient-brand text-white shadow-brand hover:shadow-brand-hover"
       : "border border-white/12 text-text-primary hover:border-white/30 backdrop-blur-md";
 
   return (
