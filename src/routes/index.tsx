@@ -74,7 +74,7 @@ function Home() {
                 trackButtonClick("BOOK_CALL_CLICKED", { section: "hero" });
                 open();
               }}>
-                Book Strategy Call
+                Start Your Project
                 <ArrowRight className="size-4" />
               </MagneticButton>
               <Link to="/services">
@@ -216,8 +216,7 @@ function Home() {
                   Ready to make growth a <span className="text-gradient">system</span>?
                 </h3>
                 <p className="mt-5 max-w-xl text-text-secondary">
-                  A 30-minute strategy call. We assess fit, surface the highest-leverage moves for your
-                  brand, and tell you straight if we're not the right team for it.
+                  Tell us about your brand and we'll continue the conversation on WhatsApp.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 lg:justify-end">
@@ -225,7 +224,7 @@ function Home() {
                   trackButtonClick("BOOK_CALL_CLICKED", { section: "cta_banner" });
                   open();
                 }}>
-                  Book Strategy Call
+                  Start Your Project
                   <ArrowRight className="size-4" />
                 </MagneticButton>
               </div>

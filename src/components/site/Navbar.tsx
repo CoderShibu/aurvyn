@@ -91,10 +91,10 @@ export function Navbar() {
             >
               <span className="relative">
                 <span className="bg-gradient-brand bg-clip-text text-transparent transition-opacity duration-300 group-hover:opacity-0">
-                  Book Strategy Call
+                  Start Your Project
                 </span>
                 <span className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  Book Strategy Call
+                  Start Your Project
                 </span>
               </span>
               <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-gradient-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -172,7 +172,7 @@ export function Navbar() {
                 }}
                 className="mt-8 w-full rounded-full bg-gradient-brand py-4 text-sm font-medium uppercase tracking-[0.14em] text-white cursor-pointer"
               >
-                Book Strategy Call
+                Start Your Project
               </motion.button>
             </nav>
           </motion.div>

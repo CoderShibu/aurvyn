@@ -31,7 +31,7 @@ export function MobileStickyCTA() {
             }}
             className="w-full rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-brand cursor-pointer"
           >
-            Book Strategy Call
+            Start Your Project
           </button>
         </motion.div>
       )}

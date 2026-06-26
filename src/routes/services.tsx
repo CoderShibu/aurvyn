@@ -104,8 +104,7 @@ function ServicesPage() {
                   Not sure which system you need?
                 </h3>
                 <p className="mt-3 max-w-xl text-text-secondary">
-                  Book a call. We'll map your current state, find the highest-leverage move, and tell
-                  you which of the six systems should come first.
+                  Tell us about your brand and we'll continue the conversation on WhatsApp.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 lg:justify-end">
@@ -113,7 +112,7 @@ function ServicesPage() {
                   trackButtonClick("BOOK_CALL_CLICKED", { section: "services_bottom" });
                   open();
                 }}>
-                  Book Strategy Call
+                  Start Your Project
                   <ArrowRight className="size-4" />
                 </MagneticButton>
               </div>
