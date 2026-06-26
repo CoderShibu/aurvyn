@@ -359,10 +359,10 @@ html.blue {
     background: transparent;
   }
   .selector-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(242, 68, 85, 0.25);
+    background: color-mix(in srgb, var(--brand-rose) 25%, transparent);
     border-radius: 99px;
   }
   .selector-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(242, 68, 85, 0.45);
+    background: color-mix(in srgb, var(--brand-rose) 45%, transparent);
   }
 }

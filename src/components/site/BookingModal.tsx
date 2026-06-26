@@ -180,8 +180,12 @@ Looking forward to discussing further. 🚀`;
 
   const selectedService = whatsappForm.watch("service");
 
-  const handleSelectService = (title: string) => {
+  const handleSelectService = async (title: string) => {
     whatsappForm.setValue("service", title, { shouldValidate: true });
+    trackButtonClick("SERVICE_OPTION_SELECTED", { service: title });
+    
+    // Play smooth selection animation before closing popover
+    await new Promise((resolve) => setTimeout(resolve, 250));
     setDropdownOpen(false);
   };
 
@@ -196,6 +200,7 @@ Looking forward to discussing further. 🚀`;
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
         >
+          {/* Main Backdrop */}
           <motion.div
             className="absolute inset-0"
             style={{
@@ -205,12 +210,24 @@ Looking forward to discussing further. 🚀`;
             }}
             onClick={close}
           />
+          
+          {/* Sibling 1: Booking Modal Card (blurred and scaled down when selector overlay is active) */}
           <motion.div
             initial={{ opacity: 0, y: 24, scale: 0.98, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            animate={{ 
+              opacity: dropdownOpen && !isMobile ? 0.35 : 1, 
+              y: dropdownOpen && !isMobile ? -6 : 0, 
+              scale: dropdownOpen && !isMobile ? 0.97 : 1, 
+              filter: dropdownOpen && !isMobile ? "blur(12px)" : "blur(0px)" 
+            }}
             exit={{ opacity: 0, y: 16, scale: 0.98, filter: "blur(6px)" }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-panel relative z-10 w-full max-w-[560px] p-7 sm:p-9 transition-all duration-300"
+            transition={{ 
+              duration: dropdownOpen && !isMobile ? 0.22 : 0.18, 
+              ease: "easeInOut" 
+            }}
+            className={`glass-panel relative z-10 w-full max-w-[560px] p-7 sm:p-9 ${
+              dropdownOpen && !isMobile ? "pointer-events-none" : ""
+            }`}
           >
             <button
               onClick={close}
@@ -256,7 +273,7 @@ Looking forward to discussing further. 🚀`;
                       error={whatsappForm.formState.errors.website?.message}
                     />
 
-                    {/* Custom Service Selector */}
+                    {/* Selector Input Trigger Area */}
                     <div className="relative" ref={dropdownRef}>
                       <button
                         type="button"
@@ -284,80 +301,6 @@ Looking forward to discussing further. 🚀`;
                           {whatsappForm.formState.errors.service.message}
                         </p>
                       )}
-
-                      {/* Desktop Dropdown Popover */}
-                      <AnimatePresence>
-                        {dropdownOpen && !isMobile && (
-                          <>
-                            {/* Backdrop click listener */}
-                            <div
-                              className="fixed inset-0 z-[85]"
-                              onClick={() => setDropdownOpen(false)}
-                            />
-
-                            <motion.div
-                              initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                              transition={{ duration: 0.22, ease: "easeOut" }}
-                              className="absolute left-0 right-0 z-[90] mt-2 rounded-2xl p-2.5 max-h-[400px] overflow-y-auto selector-scrollbar flex flex-col gap-[14px] select-none"
-                              style={{
-                                background: "rgba(12, 12, 14, 0.88)",
-                                backdropFilter: "blur(28px)",
-                                WebkitBackdropFilter: "blur(28px)",
-                                border: "1px solid rgba(255, 255, 255, 0.08)",
-                                boxShadow:
-                                  "0 20px 45px -10px rgba(0, 0, 0, 0.85), 0 0 16px rgba(242, 68, 85, 0.04)",
-                              }}
-                            >
-                              {servicesList.map((item) => {
-                                const Icon = item.icon;
-                                const isSelected = selectedService === item.title;
-                                return (
-                                  <button
-                                    type="button"
-                                    key={item.title}
-                                    ref={isSelected ? activeItemRef : undefined}
-                                    onClick={() => handleSelectService(item.title)}
-                                    className={`group flex items-center gap-[14px] p-[18px] rounded-xl border text-left cursor-pointer transition-all duration-300 ${
-                                      isSelected
-                                        ? "border-[rgba(242,68,85,0.7)] bg-white/[0.06] shadow-[inset_0_1px_12px_rgba(242,68,85,0.1)]"
-                                        : "border-transparent bg-white/[0.02] hover:bg-white/[0.04] hover:border-[rgba(242,68,85,0.4)] hover:-translate-y-[2px] hover:shadow-[0_8px_20px_-6px_rgba(242,68,85,0.12)]"
-                                    }`}
-                                  >
-                                    <div
-                                      className={`p-2.5 rounded-lg transition-all duration-300 ${
-                                        isSelected
-                                          ? "bg-brand-red/20 text-brand-rose"
-                                          : "bg-white/5 text-text-secondary group-hover:text-text-primary group-hover:bg-white/10"
-                                      }`}
-                                    >
-                                      <Icon className="size-[18px] transition-transform duration-300 group-hover:scale-110" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                      <div className="text-[16px] font-semibold text-white tracking-tight">
-                                        {item.title}
-                                      </div>
-                                      <div className="text-[13px] font-medium text-white/60 mt-1.5 leading-snug group-hover:text-white/80 transition-colors">
-                                        {item.desc}
-                                      </div>
-                                    </div>
-                                    {isSelected && (
-                                      <motion.div
-                                        initial={{ scale: 0.5, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        className="text-brand-rose pr-1"
-                                      >
-                                        <Check className="size-4.5" strokeWidth={3.5} />
-                                      </motion.div>
-                                    )}
-                                  </button>
-                                );
-                              })}
-                            </motion.div>
-                          </>
-                        )}
-                      </AnimatePresence>
                     </div>
 
                     <FloatingTextarea
@@ -458,100 +401,201 @@ Looking forward to discussing further. 🚀`;
               </motion.div>
             )}
           </motion.div>
-        </motion.div>
-      )}
 
-      {/* Mobile Drawer (Bottom Sheet) */}
-      <AnimatePresence>
-        {dropdownOpen && isMobile && (
-          <div className="fixed inset-0 z-[100] md:hidden">
-            {/* Backdrop Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setDropdownOpen(false)}
-              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            />
-            {/* Slide up Drawer */}
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 220 }}
-              className="absolute bottom-0 inset-x-0 rounded-t-[24px] p-6 pb-10 flex flex-col max-h-[85vh] overflow-hidden"
-              style={{
-                background: "rgba(13, 13, 13, 0.92)",
-                backdropFilter: "blur(24px)",
-                WebkitBackdropFilter: "blur(24px)",
-                borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-                boxShadow: "0 -10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(242, 68, 85, 0.05)",
-              }}
-            >
-              {/* Drag Handle & Close */}
-              <div className="w-12 h-1.5 bg-white/20 rounded-full mx-auto mb-5 shrink-0" />
-              <div className="flex justify-between items-center mb-4 shrink-0">
-                <div>
-                  <h3 className="text-xl font-display font-semibold text-text-primary">
-                    Select a Service
-                  </h3>
-                  <p className="text-xs text-text-secondary mt-0.5 font-sans">
-                    Which system do you want to start with?
-                  </p>
-                </div>
-                <button
-                  type="button"
+          {/* Sibling 2: Custom Service Selector Command Palette Overlay (Desktop View) */}
+          <AnimatePresence>
+            {dropdownOpen && !isMobile && (
+              <div className="fixed inset-0 z-[90] flex items-center justify-center p-4">
+                {/* Backdrop Overlay specifically for selector */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute inset-0 bg-black/55 backdrop-blur-[3px]"
                   onClick={() => setDropdownOpen(false)}
-                  className="p-1.5 rounded-full bg-white/5 text-text-secondary hover:text-text-primary"
-                >
-                  <X className="size-4" />
-                </button>
-              </div>
+                />
 
-              {/* Service Cards List */}
-              <div className="flex-1 overflow-y-auto space-y-3.5 pr-0.5 selector-scrollbar">
-                {servicesList.map((item) => {
-                  const Icon = item.icon;
-                  const isSelected = selectedService === item.title;
-                  return (
+                {/* Command Palette Floating Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  className="glass-panel relative z-10 w-full max-w-[520px] p-6 flex flex-col max-h-[480px] select-none"
+                  style={{
+                    background: "rgba(12, 12, 14, 0.9)",
+                    backdropFilter: "blur(32px)",
+                    WebkitBackdropFilter: "blur(32px)",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    boxShadow:
+                      "0 30px 60px -15px rgba(0, 0, 0, 0.95), 0 0 40px rgba(242, 68, 85, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.08)",
+                  }}
+                >
+                  {/* Header */}
+                  <div className="flex justify-between items-center mb-5 shrink-0">
+                    <div>
+                      <h3 className="text-[17px] font-display font-semibold text-white tracking-tight">
+                        Select a Service
+                      </h3>
+                      <p className="text-[12px] text-white/50 mt-0.5 font-sans">
+                        Choose a system to start your project.
+                      </p>
+                    </div>
                     <button
                       type="button"
-                      key={item.title}
-                      onClick={() => handleSelectService(item.title)}
-                      className={`w-full group flex items-center gap-[14px] p-[16px] rounded-xl border text-left cursor-pointer transition-all duration-300 ${
-                        isSelected
-                          ? "border-[rgba(242,68,85,0.7)] bg-white/[0.06] shadow-[inset_0_1px_12px_rgba(242,68,85,0.1)]"
-                          : "border-transparent bg-white/[0.02] active:bg-white/[0.06]"
-                      }`}
+                      onClick={() => setDropdownOpen(false)}
+                      className="p-1.5 rounded-full bg-white/5 text-white/60 hover:text-white transition-colors cursor-pointer"
                     >
-                      <div
-                        className={`p-2.5 rounded-lg transition-all duration-300 ${
-                          isSelected ? "bg-brand-red/20 text-brand-rose" : "bg-white/5 text-text-secondary"
-                        }`}
-                      >
-                        <Icon className="size-5" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-[15px] font-semibold text-white tracking-tight">
-                          {item.title}
-                        </div>
-                        <div className="text-[12px] font-medium text-white/60 mt-1 leading-normal">
-                          {item.desc}
-                        </div>
-                      </div>
-                      {isSelected && (
-                        <div className="text-brand-rose pr-1">
-                          <Check className="size-4" strokeWidth={3} />
-                        </div>
-                      )}
+                      <X className="size-4" />
                     </button>
-                  );
-                })}
+                  </div>
+
+                  {/* Scrollable list */}
+                  <div className="flex-1 overflow-y-auto space-y-3.5 pr-1 selector-scrollbar">
+                    {servicesList.map((item) => {
+                      const Icon = item.icon;
+                      const isSelected = selectedService === item.title;
+                      return (
+                        <button
+                          type="button"
+                          key={item.title}
+                          ref={isSelected ? activeItemRef : undefined}
+                          onClick={() => handleSelectService(item.title)}
+                          className={`w-full group flex items-center gap-[14px] p-[18px] rounded-xl border text-left cursor-pointer transition-all duration-300 ${
+                            isSelected
+                              ? "border-[var(--brand-rose)] bg-white/[0.06] shadow-[inset_0_1px_12px_rgba(242,68,85,0.08),_0_0_15px_rgba(242,68,85,0.06)] scale-[1.01]"
+                              : "border-transparent bg-white/[0.02] hover:bg-white/[0.04] hover:border-[var(--brand-rose)]/40 hover:-translate-y-[2px] hover:shadow-[0_8px_25px_-5px_rgba(242,68,85,0.12)]"
+                          }`}
+                        >
+                          <div
+                            className={`p-2.5 rounded-lg transition-all duration-300 ${
+                              isSelected
+                                ? "bg-brand-red/20 text-brand-rose"
+                                : "bg-white/5 text-text-secondary group-hover:text-text-primary group-hover:bg-white/10"
+                            }`}
+                          >
+                            <Icon className="size-[18px] transition-transform duration-300 group-hover:scale-110" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[16px] font-semibold text-white tracking-tight">
+                              {item.title}
+                            </div>
+                            <div className="text-[13px] font-medium text-white/60 mt-1.5 leading-snug group-hover:text-white/80 transition-colors">
+                              {item.desc}
+                            </div>
+                          </div>
+                          <div className="shrink-0 pl-2">
+                            <div className={`size-5 rounded-full flex items-center justify-center transition-all duration-300 ${
+                              isSelected
+                                ? "bg-[var(--brand-rose)] text-[#050505] scale-110 shadow-[0_0_10px_var(--brand-rose)]"
+                                : "border border-white/20 text-transparent"
+                            }`}>
+                              <Check className="size-3" strokeWidth={3.5} />
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+            )}
+          </AnimatePresence>
+
+          {/* Mobile Drawer (Bottom Sheet) */}
+          <AnimatePresence>
+            {dropdownOpen && isMobile && (
+              <div className="fixed inset-0 z-[100] md:hidden">
+                {/* Backdrop Overlay */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={() => setDropdownOpen(false)}
+                  className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+                />
+                {/* Slide up Drawer */}
+                <motion.div
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "100%" }}
+                  transition={{ type: "spring", damping: 25, stiffness: 220 }}
+                  className="absolute bottom-0 inset-x-0 rounded-t-[24px] p-6 pb-10 flex flex-col max-h-[85vh] overflow-hidden"
+                  style={{
+                    background: "rgba(13, 13, 13, 0.92)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+                    boxShadow: "0 -10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(242, 68, 85, 0.05)",
+                  }}
+                >
+                  {/* Drag Handle & Close */}
+                  <div className="w-12 h-1.5 bg-white/20 rounded-full mx-auto mb-5 shrink-0" />
+                  <div className="flex justify-between items-center mb-4 shrink-0">
+                    <div>
+                      <h3 className="text-xl font-display font-semibold text-text-primary">
+                        Select a Service
+                      </h3>
+                      <p className="text-xs text-text-secondary mt-0.5 font-sans">
+                        Which system do you want to start with?
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setDropdownOpen(false)}
+                      className="p-1.5 rounded-full bg-white/5 text-text-secondary hover:text-text-primary"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  </div>
+
+                  {/* Service Cards List */}
+                  <div className="flex-1 overflow-y-auto space-y-3.5 pr-0.5 selector-scrollbar">
+                    {servicesList.map((item) => {
+                      const Icon = item.icon;
+                      const isSelected = selectedService === item.title;
+                      return (
+                        <button
+                          type="button"
+                          key={item.title}
+                          onClick={() => handleSelectService(item.title)}
+                          className={`w-full group flex items-center gap-[14px] p-[16px] rounded-xl border text-left cursor-pointer transition-all duration-300 ${
+                            isSelected
+                              ? "border-[var(--brand-rose)] bg-white/[0.06] shadow-[inset_0_1px_12px_rgba(242,68,85,0.1)]"
+                              : "border-transparent bg-white/[0.02] active:bg-white/[0.06]"
+                          }`}
+                        >
+                          <div
+                            className={`p-2.5 rounded-lg transition-all duration-300 ${
+                              isSelected ? "bg-brand-red/20 text-brand-rose" : "bg-white/5 text-text-secondary"
+                            }`}
+                          >
+                            <Icon className="size-5" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[15px] font-semibold text-white tracking-tight">
+                              {item.title}
+                            </div>
+                            <div className="text-[12px] font-medium text-white/60 mt-1 leading-normal">
+                              {item.desc}
+                            </div>
+                          </div>
+                          {isSelected && (
+                            <div className="text-brand-rose pr-1">
+                              <Check className="size-4" strokeWidth={3} />
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 }
