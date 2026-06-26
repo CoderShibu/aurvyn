@@ -351,4 +351,18 @@ html.blue {
     background: radial-gradient(circle at center, var(--brand-glow, rgba(242,68,85,0.22)), transparent 60%);
     filter: blur(40px);
   }
+
+  .selector-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .selector-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .selector-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(242, 68, 85, 0.25);
+    border-radius: 99px;
+  }
+  .selector-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(242, 68, 85, 0.45);
+  }
 }

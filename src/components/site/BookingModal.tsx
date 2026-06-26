@@ -80,6 +80,7 @@ export function BookingModal() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const activeItemRef = useRef<HTMLButtonElement>(null);
 
   // Screen size check for Mobile/Desktop layout
   useEffect(() => {
@@ -88,6 +89,13 @@ export function BookingModal() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  // Scroll selected item into view when dropdown opens
+  useEffect(() => {
+    if (dropdownOpen && activeItemRef.current) {
+      activeItemRef.current.scrollIntoView({ block: "nearest" });
+    }
+  }, [dropdownOpen]);
 
   const whatsappForm = useForm<WhatsappLeadData>({
     resolver: zodResolver(whatsappLeadSchema),
@@ -292,14 +300,14 @@ Looking forward to discussing further. 🚀`;
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: 8, scale: 0.96 }}
                               transition={{ duration: 0.22, ease: "easeOut" }}
-                              className="absolute left-0 right-0 z-[90] mt-2 rounded-2xl p-2 max-h-[360px] overflow-y-auto flex flex-col gap-1.5 select-none"
+                              className="absolute left-0 right-0 z-[90] mt-2 rounded-2xl p-2.5 max-h-[400px] overflow-y-auto selector-scrollbar flex flex-col gap-[14px] select-none"
                               style={{
-                                background: "rgba(255, 255, 255, 0.05)",
-                                backdropFilter: "blur(24px)",
-                                WebkitBackdropFilter: "blur(24px)",
+                                background: "rgba(12, 12, 14, 0.88)",
+                                backdropFilter: "blur(28px)",
+                                WebkitBackdropFilter: "blur(28px)",
                                 border: "1px solid rgba(255, 255, 255, 0.08)",
                                 boxShadow:
-                                  "0 20px 40px -15px rgba(0,0,0,0.6), 0 0 24px rgba(242, 68, 85, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.12)",
+                                  "0 20px 45px -10px rgba(0, 0, 0, 0.85), 0 0 16px rgba(242, 68, 85, 0.04)",
                               }}
                             >
                               {servicesList.map((item) => {
@@ -309,27 +317,28 @@ Looking forward to discussing further. 🚀`;
                                   <button
                                     type="button"
                                     key={item.title}
+                                    ref={isSelected ? activeItemRef : undefined}
                                     onClick={() => handleSelectService(item.title)}
-                                    className={`group flex items-center gap-3.5 p-3 rounded-xl border text-left cursor-pointer transition-all duration-300 ${
+                                    className={`group flex items-center gap-[14px] p-[18px] rounded-xl border text-left cursor-pointer transition-all duration-300 ${
                                       isSelected
-                                        ? "border-[rgba(242,68,85,0.6)] bg-white/[0.08] shadow-[0_0_15px_rgba(242,68,85,0.18)]"
-                                        : "border-transparent bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/10 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(242,68,85,0.12)]"
+                                        ? "border-[rgba(242,68,85,0.7)] bg-white/[0.06] shadow-[inset_0_1px_12px_rgba(242,68,85,0.1)]"
+                                        : "border-transparent bg-white/[0.02] hover:bg-white/[0.04] hover:border-[rgba(242,68,85,0.4)] hover:-translate-y-[2px] hover:shadow-[0_8px_20px_-6px_rgba(242,68,85,0.12)]"
                                     }`}
                                   >
                                     <div
-                                      className={`p-2 rounded-lg transition-all duration-300 ${
+                                      className={`p-2.5 rounded-lg transition-all duration-300 ${
                                         isSelected
                                           ? "bg-brand-red/20 text-brand-rose"
                                           : "bg-white/5 text-text-secondary group-hover:text-text-primary group-hover:bg-white/10"
                                       }`}
                                     >
-                                      <Icon className="size-4.5 transition-transform duration-300 group-hover:scale-110" />
+                                      <Icon className="size-[18px] transition-transform duration-300 group-hover:scale-110" />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                      <div className="text-sm font-medium text-text-primary tracking-tight">
+                                      <div className="text-[16px] font-semibold text-white tracking-tight">
                                         {item.title}
                                       </div>
-                                      <div className="text-[11px] text-text-tertiary mt-0.5 leading-normal truncate group-hover:text-text-secondary transition-colors">
+                                      <div className="text-[13px] font-medium text-white/60 mt-1.5 leading-snug group-hover:text-white/80 transition-colors">
                                         {item.desc}
                                       </div>
                                     </div>
@@ -339,7 +348,7 @@ Looking forward to discussing further. 🚀`;
                                         animate={{ scale: 1, opacity: 1 }}
                                         className="text-brand-rose pr-1"
                                       >
-                                        <Check className="size-4" strokeWidth={3} />
+                                        <Check className="size-4.5" strokeWidth={3.5} />
                                       </motion.div>
                                     )}
                                   </button>
@@ -500,7 +509,7 @@ Looking forward to discussing further. 🚀`;
               </div>
 
               {/* Service Cards List */}
-              <div className="flex-1 overflow-y-auto space-y-2.5 pr-0.5">
+              <div className="flex-1 overflow-y-auto space-y-3.5 pr-0.5 selector-scrollbar">
                 {servicesList.map((item) => {
                   const Icon = item.icon;
                   const isSelected = selectedService === item.title;
@@ -509,24 +518,24 @@ Looking forward to discussing further. 🚀`;
                       type="button"
                       key={item.title}
                       onClick={() => handleSelectService(item.title)}
-                      className={`w-full group flex items-center gap-3.5 p-3.5 rounded-xl border text-left cursor-pointer transition-all duration-300 ${
+                      className={`w-full group flex items-center gap-[14px] p-[16px] rounded-xl border text-left cursor-pointer transition-all duration-300 ${
                         isSelected
-                          ? "border-[rgba(242,68,85,0.6)] bg-white/[0.08] shadow-[0_0_15px_rgba(242,68,85,0.18)]"
-                          : "border-transparent bg-white/[0.02] active:bg-white/[0.08]"
+                          ? "border-[rgba(242,68,85,0.7)] bg-white/[0.06] shadow-[inset_0_1px_12px_rgba(242,68,85,0.1)]"
+                          : "border-transparent bg-white/[0.02] active:bg-white/[0.06]"
                       }`}
                     >
                       <div
-                        className={`p-2 rounded-lg transition-all duration-300 ${
+                        className={`p-2.5 rounded-lg transition-all duration-300 ${
                           isSelected ? "bg-brand-red/20 text-brand-rose" : "bg-white/5 text-text-secondary"
                         }`}
                       >
                         <Icon className="size-5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-text-primary tracking-tight">
+                        <div className="text-[15px] font-semibold text-white tracking-tight">
                           {item.title}
                         </div>
-                        <div className="text-[11px] text-text-tertiary mt-0.5 leading-normal truncate">
+                        <div className="text-[12px] font-medium text-white/60 mt-1 leading-normal">
                           {item.desc}
                         </div>
                       </div>
