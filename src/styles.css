@@ -237,6 +237,11 @@ html.blue {
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover, rgba(255,255,255,0.16)); }
+
+  select option {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+  }
 }
 
 @utility glass-panel {
