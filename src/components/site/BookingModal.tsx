@@ -30,6 +30,7 @@ const whatsappLeadSchema = z.object({
   brandName: z.string().trim().min(1, "Brand name required").max(80),
   website: z.string().trim().min(1, "Instagram profile or website URL required").max(200),
   service: z.string().min(1, "Select a service"),
+  goal: z.string().trim().optional(),
 });
 
 type WhatsappLeadData = z.infer<typeof whatsappLeadSchema>;
@@ -104,6 +105,7 @@ export function BookingModal() {
       brandName: "",
       website: "",
       service: "",
+      goal: "",
     },
   });
 
@@ -116,6 +118,7 @@ export function BookingModal() {
         brandName: "",
         website: "",
         service: mappedService,
+        goal: "",
       });
       setDropdownOpen(false);
     } else {
@@ -137,16 +140,23 @@ export function BookingModal() {
     const phoneNumberClean = WHATSAPP_CONFIG.phoneNumber.replace(/[+\s-]/g, "");
     const recipient = `${countryCodeClean}${phoneNumberClean}`;
 
-    const message = `👋 Hello AURVYN,
+    const lines = [
+      "👋 Hello AURVYN,",
+      "",
+      "I'm interested in working with your team to build a stronger digital presence for my brand.",
+      `👤 *Contact Name:* ${data.fullName}`,
+      `🏷️ *Brand Name:* ${data.brandName}`,
+      `🌐 *Instagram / Website:* ${data.website}`,
+      `📈 *Services Required:* ${data.service}`
+    ];
 
-I'm interested in working with your team to build a stronger digital presence for my brand.
+    if (data.goal?.trim()) {
+      lines.push(`🚀 *Primary Goal:* ${data.goal.trim()}`);
+    }
 
-🏷️ *Brand Name:* ${data.brandName}
-🌐 *Instagram / Website:* ${data.website}
-📈 *Services Required:* ${data.service}
-👤 *Contact Name:* ${data.fullName}
+    lines.push("", "", "Looking forward to connecting! ✨");
 
-Looking forward to connecting! ✨`;
+    const message = lines.join("\n");
 
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/${recipient}?text=${encodedMessage}`;
@@ -291,6 +301,14 @@ Looking forward to connecting! ✨`;
                         </p>
                       )}
                     </div>
+
+                    <FloatingTextarea
+                      label="Primary Goal (optional but recommended)"
+                      placeholder="Tell us briefly what you want to achieve (e.g. grow brand awareness, generate more leads)."
+                      rows={3}
+                      {...whatsappForm.register("goal")}
+                      error={whatsappForm.formState.errors.goal?.message}
+                    />
                   </Section>
 
                   <button
