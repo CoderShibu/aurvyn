@@ -1,11 +1,26 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Loader2, X, ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+  Check,
+  Loader2,
+  X,
+  ArrowRight,
+  Megaphone,
+  User,
+  Layers,
+  Users,
+  Send,
+  BarChart3,
+  Film,
+  Brain,
+  Sparkles,
+  ChevronDown,
+} from "lucide-react";
+import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useBooking } from "./BookingProvider";
-import { FloatingInput, FloatingTextarea, FloatingSelect } from "./FloatingField";
+import { FloatingInput, FloatingTextarea } from "./FloatingField";
 import { trackButtonClick } from "./AnalyticsProvider";
 import { WHATSAPP_CONFIG } from "@/config/whatsapp";
 
@@ -20,18 +35,24 @@ const whatsappLeadSchema = z.object({
 
 type WhatsappLeadData = z.infer<typeof whatsappLeadSchema>;
 
-// Dropdown Options matching the requirements
-const servicesList = [
-  "Social Media Management",
-  "Personal Branding",
-  "Creator Management",
-  "Influencer Marketing",
-  "Brand Strategy",
-  "Content Creation",
-  "Performance Marketing",
-  "Paid Advertising",
-  "Video Production",
-  "Other",
+interface ServiceItem {
+  id: string;
+  title: string;
+  desc: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+// Service items matching user's requested titles and descriptions
+const servicesList: ServiceItem[] = [
+  { id: "social-media", title: "Social Media Management", desc: "Daily content, strategy & community growth", icon: Megaphone },
+  { id: "personal-branding", title: "Personal Branding", desc: "Build authority that people remember", icon: User },
+  { id: "content-creation", title: "Content Creation", desc: "Creative production for every platform", icon: Layers },
+  { id: "creator-management", title: "Creator Management", desc: "Brand deals, partnerships & career growth", icon: Users },
+  { id: "influencer-marketing", title: "Influencer Marketing", desc: "Campaigns with creators that convert", icon: Send },
+  { id: "performance-marketing", title: "Performance Marketing", desc: "Paid campaigns focused on ROI", icon: BarChart3 },
+  { id: "video-production", title: "Video Production", desc: "Premium visuals and storytelling", icon: Film },
+  { id: "brand-strategy", title: "Brand Strategy", desc: "Positioning, messaging & identity", icon: Brain },
+  { id: "other", title: "Other", desc: "Tell us what you need", icon: Sparkles },
 ];
 
 // Helper to map services to dropdown items
@@ -56,6 +77,17 @@ export function BookingModal() {
   const { isOpen, close, service } = useBooking();
   const [stage, setStage] = useState<Stage>("form");
   const [whatsappUrl, setWhatsappUrl] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Screen size check for Mobile/Desktop layout
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const whatsappForm = useForm<WhatsappLeadData>({
     resolver: zodResolver(whatsappLeadSchema),
@@ -80,10 +112,12 @@ export function BookingModal() {
         service: mappedService,
         goal: "",
       });
+      setDropdownOpen(false);
     } else {
       setTimeout(() => {
         setStage("form");
         setWhatsappUrl("");
+        setDropdownOpen(false);
         whatsappForm.reset();
       }, 300);
     }
@@ -134,6 +168,13 @@ Looking forward to discussing further. 🚀`;
     }
 
     setStage("success");
+  };
+
+  const selectedService = whatsappForm.watch("service");
+
+  const handleSelectService = (title: string) => {
+    whatsappForm.setValue("service", title, { shouldValidate: true });
+    setDropdownOpen(false);
   };
 
   return (
@@ -206,18 +247,110 @@ Looking forward to discussing further. 🚀`;
                       {...whatsappForm.register("website")}
                       error={whatsappForm.formState.errors.website?.message}
                     />
-                    <FloatingSelect
-                      label="Service Interested In"
-                      {...whatsappForm.register("service")}
-                      error={whatsappForm.formState.errors.service?.message}
-                    >
-                      <option value="">Select a service</option>
-                      {servicesList.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </FloatingSelect>
+
+                    {/* Custom Service Selector */}
+                    <div className="relative" ref={dropdownRef}>
+                      <button
+                        type="button"
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                        className="w-full text-left bg-transparent px-0 pb-2 pt-5 text-sm focus:outline-none cursor-pointer flex justify-between items-center peer"
+                      >
+                        <span className={selectedService ? "text-text-primary" : "text-text-tertiary"}>
+                          {selectedService || "Select a service"}
+                        </span>
+                        <ChevronDown className={`size-4 text-text-tertiary transition-transform duration-300 ${dropdownOpen ? "rotate-180 text-text-primary" : ""}`} />
+                      </button>
+                      <label className="pointer-events-none absolute left-0 top-0 text-[10px] uppercase tracking-[0.18em] text-text-secondary">
+                        Service Interested In
+                      </label>
+                      <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/12" />
+                      <span
+                        className={
+                          "pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] " +
+                          (dropdownOpen ? "scale-x-100 bg-gradient-brand " : " ") +
+                          (whatsappForm.formState.errors.service ? "bg-[color:var(--color-destructive)] scale-x-100" : "")
+                        }
+                      />
+                      {whatsappForm.formState.errors.service && (
+                        <p className="mt-1.5 text-xs text-[color:var(--color-destructive)]">
+                          {whatsappForm.formState.errors.service.message}
+                        </p>
+                      )}
+
+                      {/* Desktop Dropdown Popover */}
+                      <AnimatePresence>
+                        {dropdownOpen && !isMobile && (
+                          <>
+                            {/* Backdrop click listener */}
+                            <div
+                              className="fixed inset-0 z-[85]"
+                              onClick={() => setDropdownOpen(false)}
+                            />
+
+                            <motion.div
+                              initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                              transition={{ duration: 0.22, ease: "easeOut" }}
+                              className="absolute left-0 right-0 z-[90] mt-2 rounded-2xl p-2 max-h-[360px] overflow-y-auto flex flex-col gap-1.5 select-none"
+                              style={{
+                                background: "rgba(255, 255, 255, 0.05)",
+                                backdropFilter: "blur(24px)",
+                                WebkitBackdropFilter: "blur(24px)",
+                                border: "1px solid rgba(255, 255, 255, 0.08)",
+                                boxShadow:
+                                  "0 20px 40px -15px rgba(0,0,0,0.6), 0 0 24px rgba(242, 68, 85, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.12)",
+                              }}
+                            >
+                              {servicesList.map((item) => {
+                                const Icon = item.icon;
+                                const isSelected = selectedService === item.title;
+                                return (
+                                  <button
+                                    type="button"
+                                    key={item.title}
+                                    onClick={() => handleSelectService(item.title)}
+                                    className={`group flex items-center gap-3.5 p-3 rounded-xl border text-left cursor-pointer transition-all duration-300 ${
+                                      isSelected
+                                        ? "border-[rgba(242,68,85,0.6)] bg-white/[0.08] shadow-[0_0_15px_rgba(242,68,85,0.18)]"
+                                        : "border-transparent bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/10 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(242,68,85,0.12)]"
+                                    }`}
+                                  >
+                                    <div
+                                      className={`p-2 rounded-lg transition-all duration-300 ${
+                                        isSelected
+                                          ? "bg-brand-red/20 text-brand-rose"
+                                          : "bg-white/5 text-text-secondary group-hover:text-text-primary group-hover:bg-white/10"
+                                      }`}
+                                    >
+                                      <Icon className="size-4.5 transition-transform duration-300 group-hover:scale-110" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <div className="text-sm font-medium text-text-primary tracking-tight">
+                                        {item.title}
+                                      </div>
+                                      <div className="text-[11px] text-text-tertiary mt-0.5 leading-normal truncate group-hover:text-text-secondary transition-colors">
+                                        {item.desc}
+                                      </div>
+                                    </div>
+                                    {isSelected && (
+                                      <motion.div
+                                        initial={{ scale: 0.5, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        className="text-brand-rose pr-1"
+                                      >
+                                        <Check className="size-4" strokeWidth={3} />
+                                      </motion.div>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </motion.div>
+                          </>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
                     <FloatingTextarea
                       label="Primary Goal (optional but recommended)"
                       placeholder="Tell us briefly what you want to achieve (e.g. grow brand awareness, generate more leads)."
@@ -318,6 +451,98 @@ Looking forward to discussing further. 🚀`;
           </motion.div>
         </motion.div>
       )}
+
+      {/* Mobile Drawer (Bottom Sheet) */}
+      <AnimatePresence>
+        {dropdownOpen && isMobile && (
+          <div className="fixed inset-0 z-[100] md:hidden">
+            {/* Backdrop Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setDropdownOpen(false)}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            />
+            {/* Slide up Drawer */}
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 220 }}
+              className="absolute bottom-0 inset-x-0 rounded-t-[24px] p-6 pb-10 flex flex-col max-h-[85vh] overflow-hidden"
+              style={{
+                background: "rgba(13, 13, 13, 0.92)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+                boxShadow: "0 -10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(242, 68, 85, 0.05)",
+              }}
+            >
+              {/* Drag Handle & Close */}
+              <div className="w-12 h-1.5 bg-white/20 rounded-full mx-auto mb-5 shrink-0" />
+              <div className="flex justify-between items-center mb-4 shrink-0">
+                <div>
+                  <h3 className="text-xl font-display font-semibold text-text-primary">
+                    Select a Service
+                  </h3>
+                  <p className="text-xs text-text-secondary mt-0.5 font-sans">
+                    Which system do you want to start with?
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setDropdownOpen(false)}
+                  className="p-1.5 rounded-full bg-white/5 text-text-secondary hover:text-text-primary"
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
+
+              {/* Service Cards List */}
+              <div className="flex-1 overflow-y-auto space-y-2.5 pr-0.5">
+                {servicesList.map((item) => {
+                  const Icon = item.icon;
+                  const isSelected = selectedService === item.title;
+                  return (
+                    <button
+                      type="button"
+                      key={item.title}
+                      onClick={() => handleSelectService(item.title)}
+                      className={`w-full group flex items-center gap-3.5 p-3.5 rounded-xl border text-left cursor-pointer transition-all duration-300 ${
+                        isSelected
+                          ? "border-[rgba(242,68,85,0.6)] bg-white/[0.08] shadow-[0_0_15px_rgba(242,68,85,0.18)]"
+                          : "border-transparent bg-white/[0.02] active:bg-white/[0.08]"
+                      }`}
+                    >
+                      <div
+                        className={`p-2 rounded-lg transition-all duration-300 ${
+                          isSelected ? "bg-brand-red/20 text-brand-rose" : "bg-white/5 text-text-secondary"
+                        }`}
+                      >
+                        <Icon className="size-5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-text-primary tracking-tight">
+                          {item.title}
+                        </div>
+                        <div className="text-[11px] text-text-tertiary mt-0.5 leading-normal truncate">
+                          {item.desc}
+                        </div>
+                      </div>
+                      {isSelected && (
+                        <div className="text-brand-rose pr-1">
+                          <Check className="size-4" strokeWidth={3} />
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </AnimatePresence>
   );
 }
@@ -326,9 +551,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3 animate-fade-in">
-        <div className="text-[10px] uppercase tracking-[0.22em] text-text-tertiary">
-          {title}
-        </div>
+        <div className="text-[10px] uppercase tracking-[0.22em] text-text-tertiary">{title}</div>
         <div className="h-px flex-1 bg-white/[0.06]" />
       </div>
       <div className="space-y-4">{children}</div>
