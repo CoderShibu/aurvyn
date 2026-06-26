@@ -28,6 +28,7 @@ import { WHATSAPP_CONFIG } from "@/config/whatsapp";
 const whatsappLeadSchema = z.object({
   fullName: z.string().trim().min(2, "Enter your name").max(80),
   brandName: z.string().trim().min(1, "Brand name required").max(80),
+  industry: z.string().trim().min(1, "Industry required").max(80),
   website: z.string().trim().min(1, "Instagram profile or website URL required").max(200),
   service: z.string().min(1, "Select a service"),
   goal: z.string().trim().optional(),
@@ -103,6 +104,7 @@ export function BookingModal() {
     defaultValues: {
       fullName: "",
       brandName: "",
+      industry: "",
       website: "",
       service: "",
       goal: "",
@@ -116,6 +118,7 @@ export function BookingModal() {
       whatsappForm.reset({
         fullName: "",
         brandName: "",
+        industry: "",
         website: "",
         service: mappedService,
         goal: "",
@@ -140,24 +143,23 @@ export function BookingModal() {
     const phoneNumberClean = WHATSAPP_CONFIG.phoneNumber.replace(/[+\s-]/g, "");
     const recipient = `${countryCodeClean}${phoneNumberClean}`;
 
-    const message = `Hi! I came across AURVYN and I'm interested in working together.
+    const message = `👋 Hello AURVYN,
 
-My Name:
-${data.fullName}
+I'm interested in working with your team to build a stronger digital presence for my brand.
 
-Brand Name:
+🏷️ **Brand Name:**
 ${data.brandName}
 
-Instagram/Website:
-${data.website}
+🏢 **Industry:**
+${data.industry}
 
-Service Interested In:
+🎯 **Services Required:**
 ${data.service}
 
-Goal:
+🚀 **Primary Goal:**
 ${data.goal?.trim() || "Not specified"}
 
-Looking forward to discussing further. 🚀`;
+Looking forward to connecting! ✨`;
 
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/${recipient}?text=${encodedMessage}`;
@@ -266,6 +268,11 @@ Looking forward to discussing further. 🚀`;
                       label="Brand Name"
                       {...whatsappForm.register("brandName")}
                       error={whatsappForm.formState.errors.brandName?.message}
+                    />
+                    <FloatingInput
+                      label="Industry"
+                      {...whatsappForm.register("industry")}
+                      error={whatsappForm.formState.errors.industry?.message}
                     />
                     <FloatingInput
                       label="Instagram Profile or Website URL"
