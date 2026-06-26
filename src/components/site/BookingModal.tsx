@@ -28,10 +28,8 @@ import { WHATSAPP_CONFIG } from "@/config/whatsapp";
 const whatsappLeadSchema = z.object({
   fullName: z.string().trim().min(2, "Enter your name").max(80),
   brandName: z.string().trim().min(1, "Brand name required").max(80),
-  industry: z.string().trim().min(1, "Industry required").max(80),
   website: z.string().trim().min(1, "Instagram profile or website URL required").max(200),
   service: z.string().min(1, "Select a service"),
-  goal: z.string().trim().optional(),
 });
 
 type WhatsappLeadData = z.infer<typeof whatsappLeadSchema>;
@@ -104,10 +102,8 @@ export function BookingModal() {
     defaultValues: {
       fullName: "",
       brandName: "",
-      industry: "",
       website: "",
       service: "",
-      goal: "",
     },
   });
 
@@ -118,10 +114,8 @@ export function BookingModal() {
       whatsappForm.reset({
         fullName: "",
         brandName: "",
-        industry: "",
         website: "",
         service: mappedService,
-        goal: "",
       });
       setDropdownOpen(false);
     } else {
@@ -147,17 +141,10 @@ export function BookingModal() {
 
 I'm interested in working with your team to build a stronger digital presence for my brand.
 
-🏷️ **Brand Name:**
-${data.brandName}
-
-🏢 **Industry:**
-${data.industry}
-
-🎯 **Services Required:**
-${data.service}
-
-🚀 **Primary Goal:**
-${data.goal?.trim() || "Not specified"}
+🏷️ *Brand Name:* ${data.brandName}
+🌐 *Instagram / Website:* ${data.website}
+📈 *Services Required:* ${data.service}
+👤 *Contact Name:* ${data.fullName}
 
 Looking forward to connecting! ✨`;
 
@@ -270,11 +257,6 @@ Looking forward to connecting! ✨`;
                       error={whatsappForm.formState.errors.brandName?.message}
                     />
                     <FloatingInput
-                      label="Industry"
-                      {...whatsappForm.register("industry")}
-                      error={whatsappForm.formState.errors.industry?.message}
-                    />
-                    <FloatingInput
                       label="Instagram Profile or Website URL"
                       {...whatsappForm.register("website")}
                       error={whatsappForm.formState.errors.website?.message}
@@ -309,14 +291,6 @@ Looking forward to connecting! ✨`;
                         </p>
                       )}
                     </div>
-
-                    <FloatingTextarea
-                      label="Primary Goal (optional but recommended)"
-                      placeholder="Tell us briefly what you want to achieve (e.g. grow brand awareness, generate more leads)."
-                      rows={3}
-                      {...whatsappForm.register("goal")}
-                      error={whatsappForm.formState.errors.goal?.message}
-                    />
                   </Section>
 
                   <button
