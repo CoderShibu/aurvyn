@@ -1,9 +1,21 @@
 import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MessageCircle, X, Instagram, Phone, Mail, MessageSquare } from "lucide-react";
+import { MessageCircle, X, Instagram, Phone, Mail, MessageSquare, Bot } from "lucide-react";
 import { trackButtonClick } from "./AnalyticsProvider";
 
 const ACTIONS = [
+  {
+    id: "ai-agent",
+    label: "Chat with AI Agent",
+    sub: "Instant answers, 24/7",
+    icon: Bot,
+    href: "https://aistudio.instagram.com/ai/27981615764768916?utm_source=ai_agent",
+    color: "from-[#a855f7]/20 to-[#6366f1]/20",
+    border: "border-[#a855f7]/25",
+    iconColor: "text-[#a855f7]",
+    track: "AI_AGENT_CLICKED",
+    external: true,
+  },
   {
     id: "whatsapp",
     label: "WhatsApp",
@@ -14,6 +26,7 @@ const ACTIONS = [
     border: "border-[#25D366]/25",
     iconColor: "text-[#25D366]",
     track: "WHATSAPP_CLICKED",
+    external: true,
   },
   {
     id: "instagram",
@@ -25,6 +38,7 @@ const ACTIONS = [
     border: "border-[#e6683c]/25",
     iconColor: "text-[#e6683c]",
     track: "INSTAGRAM_CLICKED",
+    external: true,
   },
   {
     id: "email",
@@ -36,6 +50,7 @@ const ACTIONS = [
     border: "border-[#f24455]/25",
     iconColor: "text-[#f24455]",
     track: "EMAIL_CLICKED",
+    external: false,
   },
   {
     id: "call",
@@ -47,6 +62,7 @@ const ACTIONS = [
     border: "border-[#38bdf8]/25",
     iconColor: "text-[#38bdf8]",
     track: "PHONE_CALL_CLICKED",
+    external: false,
   },
 ];
 
@@ -96,8 +112,8 @@ export function ContactAgent() {
                 <motion.a
                   key={action.id}
                   href={action.href}
-                  target={action.id === "whatsapp" || action.id === "instagram" ? "_blank" : undefined}
-                  rel={action.id === "whatsapp" || action.id === "instagram" ? "noopener noreferrer" : undefined}
+                  target={action.external ? "_blank" : undefined}
+                  rel={action.external ? "noopener noreferrer" : undefined}
                   onClick={() => {
                     trackButtonClick(action.track as any);
                     setOpen(false);
