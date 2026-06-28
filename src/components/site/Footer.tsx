@@ -37,7 +37,9 @@ export function Footer() {
               <Mail className="size-4" />
             </a>
             <a 
-              href="https://wa.me/916361063589" 
+              href="https://wa.me/916361063589"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => trackButtonClick("WHATSAPP_CLICKED")}
               className="rounded-full border border-white/10 p-2 transition-colors hover:text-text-primary"
               title="Chat on WhatsApp"
@@ -45,7 +47,7 @@ export function Footer() {
               <MessageSquare className="size-4" />
             </a>
             <a 
-              href="https://www.instagram.com/aurvynn.in/" 
+              href="https://www.instagram.com/aurvynn.in"
               target="_blank" 
               rel="noopener noreferrer"
               onClick={() => trackButtonClick("INSTAGRAM_CLICKED")}

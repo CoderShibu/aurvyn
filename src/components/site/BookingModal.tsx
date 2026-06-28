@@ -313,7 +313,7 @@ export function BookingModal() {
 
                   <button
                     type="submit"
-                    disabled={whatsappForm.formState.isSubmitting || stage === "processing"}
+                    disabled={whatsappForm.formState.isSubmitting}
                     className="relative w-full overflow-hidden rounded-full bg-gradient-brand py-3.5 text-sm font-medium uppercase tracking-[0.14em] text-white shadow-brand-sm transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Start Project on WhatsApp

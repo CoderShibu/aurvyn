@@ -16,6 +16,7 @@ import { Footer } from "../components/site/Footer";
 import { BookingProvider } from "../components/site/BookingProvider";
 import { PageTransition } from "../components/site/PageTransition";
 import { MobileStickyCTA } from "../components/site/MobileStickyCTA";
+import { ContactAgent } from "../components/site/ContactAgent";
 import { AnalyticsProvider } from "../components/site/AnalyticsProvider";
 
 function NotFoundComponent() {
@@ -144,6 +145,7 @@ function RootComponent() {
             </PageTransition>
             <Footer />
             <MobileStickyCTA />
+            <ContactAgent />
           </div>
         </BookingProvider>
       </AnalyticsProvider>
