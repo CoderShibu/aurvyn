@@ -103,7 +103,8 @@ function ContactPage() {
               icon={MessageSquare} 
               label="WhatsApp" 
               value="+91 6361063589" 
-              href="https://wa.me/916361063589" 
+              href="https://wa.me/916361063589"
+              external
               onClick={() => trackButtonClick("WHATSAPP_CLICKED")}
             />
             <ContactRow icon={Clock} label="Hours" value="Mon–Fri · 10:00–19:00 IST" />
@@ -160,17 +161,23 @@ function ContactRow({
   value,
   href,
   onClick,
+  external,
 }: {
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   label: string;
   value: string;
   href?: string;
   onClick?: (e: React.MouseEvent<any>) => void;
+  external?: boolean;
 }) {
   const Wrap: React.ElementType = href ? "a" : "div";
   return (
     <Wrap
-      {...(href ? { href, onClick } : {})}
+      {...(href ? {
+        href,
+        onClick,
+        ...(external ? { target: "_blank", rel: "noopener noreferrer" } : {}),
+      } : {})}
       className="group flex items-center gap-4 border-b border-white/[0.06] pb-5"
     >
       <div className="border-gradient-brand grid size-10 place-items-center rounded-full">

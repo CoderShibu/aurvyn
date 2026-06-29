@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-export type Theme = "dark" | "light" | "blue";
+export type Theme = "dark" | "blue";
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const initialTheme = (localStorage.getItem("theme") as Theme) || "dark";
+    const stored = localStorage.getItem("theme") as Theme | null;
+    // Migrate any previously stored "light" value to "dark"
+    const initialTheme: Theme = stored === "blue" ? "blue" : "dark";
     setTheme(initialTheme);
   }, []);
 

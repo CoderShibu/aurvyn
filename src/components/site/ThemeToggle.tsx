@@ -1,18 +1,17 @@
 import { useTheme, Theme } from "@/hooks/useTheme";
 import { motion } from "framer-motion";
-import { Sun, Moon, Sparkles } from "lucide-react";
+import { Moon, Sparkles } from "lucide-react";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const options: { value: Theme; icon: any; label: string }[] = [
-    { value: "light", icon: Sun, label: "Light" },
     { value: "dark", icon: Moon, label: "Dark" },
     { value: "blue", icon: Sparkles, label: "Blue" },
   ];
 
   return (
-    <div className="relative flex items-center gap-0.5 rounded-full border border-white/[0.08] bg-white/[0.02] p-1 shadow-sm backdrop-blur-md dark:border-white/[0.08] light:border-black/[0.08] light:bg-black/[0.02]">
+    <div className="relative flex items-center gap-0.5 rounded-full border border-white/[0.08] bg-white/[0.02] p-1 shadow-sm backdrop-blur-md">
       {options.map((opt) => {
         const Icon = opt.icon;
         const active = theme === opt.value;
